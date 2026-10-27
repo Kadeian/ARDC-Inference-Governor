@@ -34,3 +34,7 @@ Tested against the **MATH-500** benchmark using an open-weights model (`Qwen1.5-
 ## Usage / Quickstart
 
 *(Code coming soon - upload pending)*
+
+## Clarity4Life MLOps scaffold
+
+See [mlops/README.md](mlops/README.md) for the async API, LangGraph orchestration, paper-derived ARDC depth controller, evaluation/guardrail harness, dashboards, AWS Terraform and gated release runbooks. The [paper mapping](mlops/docs/ARDC_PAPER_REVIEW.md) explains how the supplied Adaptive Recursive Dimensional Compression paper differs from this repository's token-level experiment. Production remains gated on a reviewed agent adapter, calibrated measurements and policy, security checks, and staging evidence.

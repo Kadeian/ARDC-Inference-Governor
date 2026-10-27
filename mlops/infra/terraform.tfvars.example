@@ -1,0 +1,14 @@
+# Replace identifiers after access is available. Never place secret values here.
+region               = "us-east-2"
+environment          = "staging"
+vpc_id               = "vpc-REPLACE"
+public_subnet_ids    = ["subnet-PUBLIC-A", "subnet-PUBLIC-B"]
+private_subnet_ids   = ["subnet-PRIVATE-A", "subnet-PRIVATE-B"]
+certificate_arn      = "arn:aws:acm:us-east-2:ACCOUNT:certificate/REPLACE"
+api_token_secret_arn = "arn:aws:secretsmanager:us-east-2:ACCOUNT:secret:REPLACE"
+image_digest_uri     = "ACCOUNT.dkr.ecr.us-east-2.amazonaws.com/c4l-staging@sha256:REPLACE"
+agent_factory        = "your_agent.integration:create_agent"
+policy_factory       = "your_ardc.integration:create_policy"
+allowed_client_cidrs = ["192.0.2.1/32"] # Documentation address; replace with your trusted egress IP.
+budget_email         = "REPLACE"
+monthly_budget_usd   = "100"
