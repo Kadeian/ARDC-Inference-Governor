@@ -1,0 +1,43 @@
+name: release-reviewed-task
+on:
+  workflow_dispatch:
+    inputs:
+      task_definition_arn:
+        description: Reviewed, registered task definition containing the scanned image digest
+        required: true
+      gate_record:
+        description: URL of approved gate evidence (eval, policy, scan, budget, rollback drill)
+        required: true
+defaults:
+  run:
+    working-directory: mlops
+permissions:
+  contents: read
+concurrency:
+  group: production-release
+  cancel-in-progress: false
+jobs:
+  release:
+    # Configure required reviewers and main-only deployment rules on this environment.
+    environment: production
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_RELEASE_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Start deployment (traffic remains gated)
+        env:
+          TASK_DEFINITION: ${{ inputs.task_definition_arn }}
+          GATE_RECORD: ${{ inputs.gate_record }}
+          DEPLOY_APPLICATION: ${{ vars.DEPLOY_APPLICATION }}
+          DEPLOY_GROUP: ${{ vars.DEPLOY_GROUP }}
+        run: python scripts/deploy.py
