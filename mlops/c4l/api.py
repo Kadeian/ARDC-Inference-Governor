@@ -7,7 +7,8 @@ import uuid
 from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI, HTTPException
-from fastapi.responses import Response
+from fastapi.responses import Response, JSONResponse
+from fastapi.exceptions import RequestValidationError
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from pydantic import BaseModel, ConfigDict, Field
@@ -101,3 +102,16 @@ async def invoke(body: AgentRequest):
         LATENCY.observe(time.monotonic() - started)
         REQUESTS.labels(outcome).inc()
         log.warning("request_id=%s outcome=%s", request_id, outcome)
+
+
+# Validation errors must never echo a rejected body (including sensitive values).
+@app.exception_handler(RequestValidationError)
+async def sanitized_validation_error(request, exc):
+    return JSONResponse(
+        status_code=422, content={"detail": "Invalid request. Check fields and remove sensitive information."}
+    )
+
+
+from c4l.workforce.routes import router as workforce_router  # noqa: E402
+
+app.include_router(workforce_router, dependencies=[Depends(authorized)])

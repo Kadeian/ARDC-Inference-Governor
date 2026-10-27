@@ -1,6 +1,6 @@
 # Clarity4Life MLOps and governance
 
-Initial production-oriented scaffold for one existing Clarity4Life agent. Runs without provider credentials using a deterministic demo. Live startup rejects the demo agent and baseline policy. Nothing has been deployed and no website changes have been made.
+Initial production-oriented scaffold and NEW Texas Workforce Benefits Navigator for Clarity4Life. Runs without provider credentials using a deterministic demo. Live startup rejects the demo agent and baseline policy. Nothing has been deployed and no website changes have been made.
 
 ## Run locally
 
@@ -42,3 +42,7 @@ Architecture follows the [LangGraph graph API](https://docs.langchain.com/oss/py
 ## Paper-derived ARDC extension
 
 `c4l/ardc.py` implements Equation (1), retained integrity, adaptive uncertainty, audited depth selection, and a measured online policy. Run `python -m evals.ardc_run` for a synthetic numeric audit. The real adapter must supply trusted `DepthMeasurement` evidence and an approved versioned measurement protocol. Missing evidence requests review. This is a reference implementation, not a claim that the existing agent has been validated or that its token-level governor is equivalent. See the paper review for differences and deployment gates.
+
+## Workforce Benefits Navigator
+
+The first product is a new agent for Texas adults navigating unemployment and training funding. Run `python -m c4l.workforce` for the credential-free interactive source-card assistant. API routes: `/v1/navigator` and `/v1/navigator/organizer`. Run `python -m evals.workforce_run` for its synthetic safety gate. See [the product charter](docs/WORKFORCE_NAVIGATOR.md) for source limitations, advisor handoffs, user-owned tracking, ARDC integration and launch gates. No model credentials or personal client records are required.

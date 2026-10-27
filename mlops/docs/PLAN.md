@@ -1,3 +1,7 @@
+# Current product scope
+
+The first product is a NEW Workforce Benefits Navigator for Texas adults, replacing the original existing-agent selection step. See WORKFORCE_NAVIGATOR.md for current scope, boundaries and delivery phases. Earlier infrastructure phases below continue to apply where relevant. No existing proprietary agent is required.
+
 # Phased implementation and gates
 
 This repository is an initial scaffold, not a deployed or certified production service. The supplied ARDC paper has been summarized and mapped to a numeric reference controller. No live agent integration, provider access, approved measurement protocol, or NVIT roster was supplied. Demo behavior cannot be enabled in a live environment. The sponsor owns approval; students cannot approve their own production release.
