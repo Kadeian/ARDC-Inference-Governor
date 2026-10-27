@@ -35,7 +35,7 @@ TODAY = date(2026, 10, 27)
         ("Predict lottery numbers", "insufficient_evidence"),
         ("My SSN is 123-45-6789", "sensitive_input"),
         ("Account number: 12345678", "sensitive_input"),
-        ("My SSN is ï¼‘ï¼’ï¼“ï¼”ï¼•ï¼–ï¼—ï¼˜ï¼™", "sensitive_input"),
+        ("My SSN is \uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19", "sensitive_input"),
     ],
 )
 def test_handoffs(question, reason):
