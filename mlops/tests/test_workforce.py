@@ -35,7 +35,7 @@ TODAY = date(2026, 10, 27)
         ("Predict lottery numbers", "insufficient_evidence"),
         ("My SSN is 123-45-6789", "sensitive_input"),
         ("Account number: 12345678", "sensitive_input"),
-        ("My SSN is １２３４５６７８９", "sensitive_input"),
+        ("My SSN is ï¼‘ï¼’ï¼“ï¼”ï¼•ï¼–ï¼—ï¼˜ï¼™", "sensitive_input"),
     ],
 )
 def test_handoffs(question, reason):
@@ -170,9 +170,11 @@ def test_api_auth_and_no_sensitive_validation_echo(monkeypatch):
 
 
 def test_workforce_evaluation_suite():
-    from evals.workforce_run import main
+    import runpy
+    from pathlib import Path
 
-    main()
+    module = runpy.run_path(str(Path(__file__).resolve().parents[1] / "evals" / "workforce_run.py"))
+    module["main"]()
 
 
 def test_reference_routes_block_nonlocal(monkeypatch):
